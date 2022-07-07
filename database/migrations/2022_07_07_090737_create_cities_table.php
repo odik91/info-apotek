@@ -13,19 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_apotek');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('no_izin');
-            $table->string('penanggung_jawab');
-            $table->text('alamat');
-            $table->integer('kecamatan_id');
-            $table->integer('kabupaten_id');
+            $table->string('nama_kabupaten_kota', 100);
             $table->integer('provinsi_id');
-            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -38,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('cities');
     }
 };
