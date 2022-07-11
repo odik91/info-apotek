@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CitiesController;
+use App\Http\Controllers\DistricController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProvinceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/testLogin', function () {
-    return view('auth.testLogin');
-});
-Route::get('/testRegister', function () {
-    return view('auth.testRegister');
-});
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::prefix('admin')->group(function () {
+    Route::resource('province', ProvinceController::class);
+    Route::resource('kabupaten', CitiesController::class);
+    Route::resource('kecamatan', DistricController::class);
+});
