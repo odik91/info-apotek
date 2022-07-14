@@ -43,21 +43,64 @@
         </li>
         <li class="nav-header">Obat Admin</li>
         <li class="nav-item">
-          <a href="{{route('province.index')}}" class="nav-link">
+          <a href="{{route('kelas-obat.index')}}" class="nav-link">
             <i class="nav-icon far fa-circle text-info"></i>
-            <p class="text"></p>
+            <p class="text">Kelas Obat</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('kabupaten.index')}}" class="nav-link">
+          <a href="{{route('subkelas-obat.index')}}" class="nav-link">
             <i class="nav-icon far fa-circle text-info"></i>
-            <p class="text">Kabupaten Kota</p>
+            <p class="text">Subkelas obat</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('kecamatan.index')}}" class="nav-link">
+          <a href="{{route('sediaan-obat.index')}}" class="nav-link">
             <i class="nav-icon far fa-circle text-info"></i>
-            <p class="text">Kecamatan</p>
+            <p class="text">Sediaan Obat</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{route('obat.index')}}" class="nav-link">
+            <i class="nav-icon far fa-circle text-info"></i>
+            <p class="text">Obat</p>
+          </a>
+        </li>
+        <li class="nav-header">Alkes Admin</li>
+        <li class="nav-item">
+          <a href="{{route('kelas-obat.index')}}" class="nav-link">
+            <i class="nav-icon far fa-circle text-info"></i>
+            <p class="text">Kelompok Alkes</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{route('subkelas-obat.index')}}" class="nav-link">
+            <i class="nav-icon far fa-circle text-info"></i>
+            <p class="text">Kategori Alkes</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{route('sediaan-obat.index')}}" class="nav-link">
+            <i class="nav-icon far fa-circle text-info"></i>
+            <p class="text">Kelas Alkes</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{route('obat.index')}}" class="nav-link">
+            <i class="nav-icon far fa-circle text-info"></i>
+            <p class="text">Kelas Resiko Alkes</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{route('obat.index')}}" class="nav-link">
+            <i class="nav-icon far fa-circle text-info"></i>
+            <p class="text">Sifat Alkes</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{route('obat.index')}}" class="nav-link">
+            <i class="nav-icon far fa-circle text-info"></i>
+            <p class="text">Alkes</p>
           </a>
         </li>
         <li class="nav-header">ETC</li>

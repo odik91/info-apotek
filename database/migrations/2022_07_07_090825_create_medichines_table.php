@@ -17,11 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('nama_obat', 100);
             $table->integer('kelas_obat_id');
-            $table->integer('sediaan_obat_id');
-            $table->float('kekuatan', 8, 2);
-            $table->string('satuan', 100);
-            $table->text('retriksi_obat');
-            $table->text('retriksi_sediaan');
+            $table->integer('subkelas_obat_id')->nullable();
+            $table->integer('sediaan_obat_id')->nullable();
+            $table->string('kekuatan', 20)->nullable();
+            $table->string('satuan', 100)->nullable();
+            $table->text('retriksi')->nullable();
+            $table->text('retriksi_obat')->nullable();
+            $table->text('retriksi_sediaan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
