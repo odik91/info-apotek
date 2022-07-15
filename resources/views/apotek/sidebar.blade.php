@@ -68,37 +68,37 @@
         </li>
         <li class="nav-header">Alkes Admin</li>
         <li class="nav-item">
-          <a href="{{route('kelas-obat.index')}}" class="nav-link">
+          <a href="{{route('kelompok-alkes.index')}}" class="nav-link">
             <i class="nav-icon far fa-circle text-info"></i>
             <p class="text">Kelompok Alkes</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('subkelas-obat.index')}}" class="nav-link">
+          <a href="{{route('kategori-alkes.index')}}" class="nav-link">
             <i class="nav-icon far fa-circle text-info"></i>
             <p class="text">Kategori Alkes</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('sediaan-obat.index')}}" class="nav-link">
+          <a href="{{route('kelas-alkes.index')}}" class="nav-link">
             <i class="nav-icon far fa-circle text-info"></i>
             <p class="text">Kelas Alkes</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('obat.index')}}" class="nav-link">
+          <a href="{{route('kelas-resiko.index')}}" class="nav-link">
             <i class="nav-icon far fa-circle text-info"></i>
             <p class="text">Kelas Resiko Alkes</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('obat.index')}}" class="nav-link">
+          <a href="{{route('sifat-alkes.index')}}" class="nav-link">
             <i class="nav-icon far fa-circle text-info"></i>
             <p class="text">Sifat Alkes</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('obat.index')}}" class="nav-link">
+          <a href="{{route('alkes.index')}}" class="nav-link">
             <i class="nav-icon far fa-circle text-info"></i>
             <p class="text">Alkes</p>
           </a>

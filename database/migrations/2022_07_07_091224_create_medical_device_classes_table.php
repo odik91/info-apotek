@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('medical_device_classes', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kelas_alkes');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
