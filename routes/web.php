@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Apotek\MainController;
+use App\Http\Controllers\Apotek\MedichineManagementController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\DistricController;
 use App\Http\Controllers\MedicalDeviceCategoryConroller;
@@ -35,7 +37,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::prefix('admin')->group(function () {
+Route::prefix('setting')->group(function () {
     Route::resource('province', ProvinceController::class);
     Route::resource('kabupaten', CitiesController::class);
     Route::resource('kecamatan', DistricController::class);
@@ -54,4 +56,13 @@ Route::prefix('admin')->group(function () {
     Route::resource('kelas-resiko', MedicalDeviceRiskClassController::class);
     Route::resource('sifat-alkes', MedicalDevicePropertiesController::class);
     Route::resource('alkes', MedicalEquipmentController::class);
+});
+route::prefix('admin')->group(function () {
+    // route user apotek
+    Route::resource('apotek', MainController::class);
+    Route::get('/apotek-city/{id}', [MainController::class, 'getCity'])->name('apotek.ajaxCity');
+    Route::get('/apotek-distric/{id}', [MainController::class, 'getDistic'])->name('apotek.ajaxDistric');
+
+    // route medichine management
+    Route::resource('manage-medichine', MedichineManagementController::class);
 });

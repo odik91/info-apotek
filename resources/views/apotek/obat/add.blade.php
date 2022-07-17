@@ -122,7 +122,7 @@
       let kelasObatId = $(elem).val()
       if (kelasObatId) {
         $.ajax({
-          url: '/admin/tambah-obat/' + kelasObatId,
+          url: '/setting/tambah-obat/' + kelasObatId,
           type: 'GET',
           dataType: 'json',
           success: (data) => {

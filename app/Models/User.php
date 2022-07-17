@@ -21,6 +21,14 @@ class User extends Authenticatable
         'nama_apotek',
         'email',
         'password',
+        'no_izin',
+        'penanggung_jawab',
+        'alamat',
+        'kecamatan_id',
+        'kabupaten_id',
+        'provinsi_id',
+        'no_telepon',
+        'longlat'
     ];
 
     /**
@@ -41,4 +49,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function userProvince()
+    {
+        return $this->hasOne(Province::class, 'id', 'provinsi_id');
+    }
+
+    public function userCity()
+    {
+        return $this->hasOne(City::class, 'id', 'kabupaten_id');
+    }
+
+    public function userDistrict()
+    {
+        return $this->hasOne(District::class, 'id', 'kecamatan_id');
+    }
 }

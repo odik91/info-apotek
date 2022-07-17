@@ -25,6 +25,8 @@ return new class extends Migration
             $table->integer('kecamatan_id')->nullable();
             $table->integer('kabupaten_id')->nullable();
             $table->integer('provinsi_id')->nullable();
+            $table->string('no_telepon')->nullable();
+            $table->string('longlat')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
