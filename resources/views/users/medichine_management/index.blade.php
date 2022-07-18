@@ -67,10 +67,10 @@
                     <td class="text-wrap">{{$medichine['kekuatan']}}</td>
                     <td class="text-wrap">{{$medichine['satuan']}}</td>
                     <td class="text-wrap">
-                      <?php
+                      @php
                       $status = App\Models\MedichineStock::where('apotek_id', auth()->user()->id)->where('obat_id',
                       $medichine['id'])->first();
-                      ?>
+                      @endphp
                       <select name="status[]">
                         <option value="{{$medichine['id'] . '+' . auth()->user()->id}}+0" {{(isset($status['status']) &&
                           ($status['status']=='tidak' ) ) ? 'selected' : '' }}>Tidak</option>
@@ -88,8 +88,8 @@
                 </div>
               </div>
               <div class="container">
-                <div class="row justify-content-end">
-                  <button class="btn btn-secondary mx-2 mb-5 px-5" id="batal">Batal</button>
+                <div class="row align-items-end justify-content-center">
+                  <a href="{{route('apotek.index')}}" class="btn btn-secondary mx-2 mb-5 px-5" id="batal">Batal</a>
                   <form action="{{route('manage-medichine.store')}}" method="post">
                     @csrf
                     <input type="hidden" name="sendArr" id="sendArr" value="">

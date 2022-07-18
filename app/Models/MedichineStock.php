@@ -11,4 +11,14 @@ class MedichineStock extends Model
 {
     use HasFactory, Notifiable, SoftDeletes;
     protected $guarded = [];
+
+    public function getMedichineName()
+    {
+        return $this->hasOne(Medichine::class, 'id', 'obat_id');
+    }
+
+    // public function getMedichineClass()
+    // {
+    //     return $this->hasOne(MedichineClass::class, 'id', '');
+    // }
 }

@@ -27,9 +27,10 @@ class MainController extends Controller
         $title = 'Beranda';
         $users = User::where('id', auth()->user()->id)->first();
         $medichine_stocks = MedichineStock::where('apotek_id', auth()->user()->id)->get();
+        $qtyMedichineStock =  MedichineStock::where('apotek_id', auth()->user()->id)->where('status', 'ada')->get();
         $medicalEquipmentStocks = MedicalEquipmentStock::where('apotek_id', auth()->user()->id)->get();
         // dd(count($medichine_stocks));
-        return view('users.apotek.index', compact('title', 'users', 'medichine_stocks', 'medicalEquipmentStocks'));
+        return view('users.apotek.index', compact('title', 'users', 'medichine_stocks', 'qtyMedichineStock', 'medicalEquipmentStocks'));
     }
 
     /**
