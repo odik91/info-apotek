@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Apotek\MainController;
+use App\Http\Controllers\Apotek\MedicalDeviceController;
 use App\Http\Controllers\Apotek\MedichineManagementController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\DistricController;
@@ -65,4 +66,10 @@ route::prefix('admin')->group(function () {
 
     // route medichine management
     Route::resource('manage-medichine', MedichineManagementController::class);
+    Route::get('/search-medichie', [MedichineManagementController::class, 'cariObat'])->name('manage-medichine.search');
+
+    // route medical device management
+    Route::resource('medical-device', MedicalDeviceController::class);
+    Route::post('/set-device', [MedicalDeviceController::class, 'setAvailability'])->name('medical-device.setDevice');
+    Route::post('/get-device', [MedicalDeviceController::class, 'cariAlkes'])->name('medical-device.getDevice');
 });

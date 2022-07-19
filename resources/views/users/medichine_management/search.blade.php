@@ -39,10 +39,10 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title mb-2">Data Obat</h3>
+              <h3 class="card-title mb-2">Ditemukan <b>{{count($medichines)}}</b> hasil pencarian yang cocok</h3>
               <div class="float-right">
                 <form class="form-inline" method="GET" action="{{route('manage-medichine.search')}}">
-                  {{-- @csrf --}}
+                  @csrf
                   <label class="sr-only" for="cari_obat">Cari Obat</label>
                   <div class="input-group mb-2 mr-sm-2">
                     <input type="text" class="form-control" id="cari_obat" name="cari_obat" placeholder="Cari Obat">

@@ -41,7 +41,7 @@ class MedicalEquipmentController extends Controller
         $this->validate($request, [
             'nama' => 'required|min:3'
         ]);
-        $data['nama'] = $request['nama'];
+        $data['nama'] = strtolower($request['nama']);
         $data['kelompok_alkes_id'] = $request['kelompok_alkes_id'];
         $data['kategori_alkes_id'] = $request['kategori_alkes_id'];
         $data['kelas_alkes_id'] = $request['kelas_alkes_id'];

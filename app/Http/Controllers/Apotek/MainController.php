@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\District;
 use App\Models\MedicalEquipmentStock;
+use App\Models\MedicalEquipment;
 use App\Models\MedichineStock;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -27,10 +28,15 @@ class MainController extends Controller
         $title = 'Beranda';
         $users = User::where('id', auth()->user()->id)->first();
         $medichine_stocks = MedichineStock::where('apotek_id', auth()->user()->id)->get();
+
+        $medicalEquipments = MedicalEquipment::orderBy('nama', 'asc')->get();
+
         $qtyMedichineStock =  MedichineStock::where('apotek_id', auth()->user()->id)->where('status', 'ada')->get();
-        $medicalEquipmentStocks = MedicalEquipmentStock::where('apotek_id', auth()->user()->id)->get();
+
+        $medicalEquipmentStocks = MedicalEquipmentStock::where('apotek_id', auth()->user()->id)->where('status', 'ada')->get();
+
         // dd(count($medichine_stocks));
-        return view('users.apotek.index', compact('title', 'users', 'medichine_stocks', 'qtyMedichineStock', 'medicalEquipmentStocks'));
+        return view('users.apotek.index', compact('title', 'users', 'medichine_stocks', 'medicalEquipments', 'qtyMedichineStock', 'medicalEquipmentStocks'));
     }
 
     /**

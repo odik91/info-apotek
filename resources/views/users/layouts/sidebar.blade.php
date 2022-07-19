@@ -39,17 +39,9 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-wrench"></i>
-            <p>
-              List Obat Tersedia
-            </p>
-          </a>
-        </li>
         <li class="nav-header">Kelola Alkes</li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{(route('medical-device.index'))}}" class="nav-link">
             <i class="nav-icon far fa-image"></i>
             <p>
               List Semua Alkes
@@ -57,10 +49,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-wrench"></i>
+          <a href="{{ route('medical-device.create') }}" class="nav-link">
+            <i class="nav-icon fas fa-plus-square"></i>
             <p>
-              List Alkes Tersedia
+              Tambah Alkes
             </p>
           </a>
         </li>

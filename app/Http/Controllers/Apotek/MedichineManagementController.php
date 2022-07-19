@@ -127,4 +127,11 @@ class MedichineManagementController extends Controller
     {
         //
     }
+
+    public function cariObat(Request $request)
+    {
+        $title = 'Hasil Pencarian';
+        $medichines = Medichine::where('nama_obat', 'like', "%$request->cari_obat%")->paginate(10);
+        return view('users.medichine_management.search', compact('title', 'medichines'));
+    }
 }

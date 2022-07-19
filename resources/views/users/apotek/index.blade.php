@@ -123,7 +123,7 @@
               <strong><i class="fas fa-microscope"></i> Jumlah Jenis Alkes Tersedia</strong>
 
               <p class="text-muted">
-                <span class="tag tag-danger">0</span>
+                <span class="tag tag-danger">{{ count($medicalEquipmentStocks) }}</span>
               </p>
             </div>
             <!-- /.card-body -->
@@ -199,7 +199,61 @@
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="timeline">
                   @if (count($medicalEquipmentStocks) > 0)
-                  {{ count($medicalEquipmentStocks) }}
+                  <table id="tabelAlkes" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Nama Akles</th>
+                        <th>Kelompok Alkes</th>
+                        <th>Kategori Akles</th>
+                        <th>Kelas Alkes</th>
+                        <th>Kelas Resiko Alkes</th>
+                        <th>Sifat Alkes</th>
+                        <th>Tersedia</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($medicalEquipments as $key => $medicalEquipment)
+                      <tr>
+                        <td>{{ ++$key }}</td>
+                        <td class="text-wrap">{{ucwords($medicalEquipment['nama'])}}</td>
+                        <td class="text-wrap">
+                          {{ucwords($medicalEquipment->infoKelompokAlkes['nama_kelompok_alat_kesehatan'])}}
+                        </td>
+                        <td class="text-wrap">
+                          {{ucwords($medicalEquipment->infoKategoriAlkes['nama_kategori_alkes'])}}</td>
+                        <td class="text-wrap">{{ucwords($medicalEquipment->infoKelasAlkes['nama_kelas_alkes'])}}</td>
+                        <td class="text-wrap">{{$medicalEquipment->infoKelasResiko['nama_kelas_resiko_alkes']}}
+                        </td>
+                        <td class="text-wrap">{{$medicalEquipment->infoSifatAlkes['nama_sifat_alkes']}}</td>
+                        <td class="text-wrap">
+                          @php
+                          $status = App\Models\MedicalEquipmentStock::where('apotek_id',
+                          auth()->user()->id)->where('alkes_id',
+                          $medicalEquipment['id'])->first();
+                          @endphp
+                          @if (isset($status['status']))
+                          {{ ucwords($status['status']) }}
+                          @else
+                          Tidak
+                          @endif
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th>No</th>
+                        <th>Nama Akles</th>
+                        <th>Kelompok Alkes</th>
+                        <th>Kategori Akles</th>
+                        <th>Kelas Alkes</th>
+                        <th>Kelas Resiko Alkes</th>
+                        <th>Sifat Alkes</th>
+                        <th>Tersedia</th>
+                      </tr>
+                    </tfoot>
+                  </table>
                   @else
                   <h1 class="text-center">Belum Ada Stok Alkes</h1>
                   <p class="text-center">
@@ -378,6 +432,12 @@
 
   $(function () {
     $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      "searching": true,
+      "ordering": true,
+    })
+    $("#tabelAlkes").DataTable({
       "responsive": true,
       "autoWidth": false,
       "searching": true,

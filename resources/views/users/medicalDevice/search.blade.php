@@ -13,7 +13,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Obat</li>
+            <li class="breadcrumb-item active">Alkes</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -39,13 +39,13 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title mb-2">Data Obat</h3>
+              <h3 class="card-title mb-2">Ditemukan <b>{{count($medicalEquipments)}}</b> hasil pencarian yang cocok</h3>
               <div class="float-right">
-                <form class="form-inline" method="GET" action="{{route('manage-medichine.search')}}">
-                  {{-- @csrf --}}
-                  <label class="sr-only" for="cari_obat">Cari Obat</label>
+                <form class="form-inline" method="POST" action="{{route('medical-device.getDevice')}}">
+                  @csrf
+                  <label class="sr-only" for="cari_alkes">Cari Alkes</label>
                   <div class="input-group mb-2 mr-sm-2">
-                    <input type="text" class="form-control" id="cari_obat" name="cari_obat" placeholder="Cari Obat">
+                    <input type="text" class="form-control" id="cari_alkes" name="cari_alkes" placeholder="Cari Alkes">
                   </div>
                   <button type="submit" class="btn btn-primary mb-2">Cari</button>
                 </form>
@@ -57,35 +57,41 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama Obat</th>
-                    <th>Kelas Obat</th>
-                    <th>Subkelas Obat</th>
-                    <th>Sediaan</th>
-                    <th>Kekuatan</th>
-                    <th>Satuan</th>
+                    <th>Nama Akles</th>
+                    <th>Kelompok Alkes</th>
+                    <th>Kategori Akles</th>
+                    <th>Kelas Alkes</th>
+                    <th>Kelas Resiko Alkes</th>
+                    <th>Sifat Alkes</th>
                     <th>Tersedia</th>
                   </tr>
                 </thead>
                 <tbody id="status">
-                  @foreach ($medichines as $key => $medichine)
+                  @foreach ($medicalEquipments as $key => $medicalEquipment)
                   <tr>
                     <td>{{ ++$key }}</td>
-                    <td class="text-wrap">{{ucwords($medichine['nama_obat'])}}</td>
-                    <td class="text-wrap">{{ucwords($medichine->getKelas['kelas_obat'])}}</td>
-                    <td class="text-wrap">{{ucwords($medichine->getSubkelas['subkelas_obat'])}}</td>
-                    <td class="text-wrap">{{ucwords($medichine->getSediaanObat['sediaan_obat'])}}</td>
-                    <td class="text-wrap">{{$medichine['kekuatan']}}</td>
-                    <td class="text-wrap">{{$medichine['satuan']}}</td>
+                    <td class="text-wrap">{{ucwords($medicalEquipment['nama'])}}</td>
+                    <td class="text-wrap">
+                      {{ucwords($medicalEquipment->infoKelompokAlkes['nama_kelompok_alat_kesehatan'])}}
+                    </td>
+                    <td class="text-wrap">
+                      {{ucwords($medicalEquipment->infoKategoriAlkes['nama_kategori_alkes'])}}</td>
+                    <td class="text-wrap">{{ucwords($medicalEquipment->infoKelasAlkes['nama_kelas_alkes'])}}</td>
+                    <td class="text-wrap">{{$medicalEquipment->infoKelasResiko['nama_kelas_resiko_alkes']}}
+                    </td>
+                    <td class="text-wrap">{{$medicalEquipment->infoSifatAlkes['nama_sifat_alkes']}}</td>
                     <td class="text-wrap">
                       @php
-                      $status = App\Models\MedichineStock::where('apotek_id', auth()->user()->id)->where('obat_id',
-                      $medichine['id'])->first();
+                      $status = App\Models\MedicalEquipmentStock::where('apotek_id',
+                      auth()->user()->id)->where('alkes_id',
+                      $medicalEquipment['id'])->first();
                       @endphp
                       <select name="status[]">
-                        <option value="{{$medichine['id'] . '+' . auth()->user()->id}}+0" {{(isset($status['status']) &&
-                          ($status['status']=='tidak' ) ) ? 'selected' : '' }}>Tidak</option>
-                        <option value="{{$medichine['id'] . '+' . auth()->user()->id}}+1" {{(isset($status['status']) &&
-                          ($status['status']=='ada' ) ) ? 'selected' : '' }}>Ada</option>
+                        <option value="{{$medicalEquipment['id'] . '+' . auth()->user()->id}}+0"
+                          {{(isset($status['status']) && ($status['status']=='tidak' ) ) ? 'selected' : '' }}>Tidak
+                        </option>
+                        <option value="{{$medicalEquipment['id'] . '+' . auth()->user()->id}}+1"
+                          {{(isset($status['status']) && ($status['status']=='ada' ) ) ? 'selected' : '' }}>Ada</option>
                       </select>
                     </td>
                   </tr>
@@ -94,13 +100,13 @@
               </table>
               <div class="container">
                 <div class="row justify-content-center">
-                  {{ $medichines->links('vendor.pagination.custom') }}
+                  {{ $medicalEquipments->links('vendor.pagination.custom') }}
                 </div>
               </div>
               <div class="container">
                 <div class="row align-items-end justify-content-center">
                   <a href="{{route('apotek.index')}}" class="btn btn-secondary mx-2 mb-5 px-5" id="batal">Batal</a>
-                  <form action="{{route('manage-medichine.store')}}" method="post">
+                  <form action="{{route('medical-device.setDevice')}}" method="post">
                     @csrf
                     <input type="hidden" name="sendArr" id="sendArr" value="">
                     <button type="submit" class="btn btn-primary mx-2 mb-5 px-5" id="simpan">Simpan</button>
@@ -137,17 +143,18 @@
     for (let i = 0; i < selectElement.length; i++) {
       dataArr.push(selectOption.eq(i).val())
       setHiddenValue.value = dataArr.toString()
+      // console.log(dataArr);
 
       selectOption.eq(i).on('change', (e) => {
         if (dataArr.length > 0) {
-          console.log(selectOption.eq(i).val());
+          // console.log(selectOption.eq(i).val());
 
           let checkValue = (el) => el == selectOption.eq(i).val() //for index search
           let cariIndex = dataArr.findIndex(checkValue)
-          console.log("hasil cari " + cariIndex);
+          // console.log("hasil cari " + cariIndex);
           if (cariIndex == -1) {
             let selectValue =  selectOption.eq(i).val().split("+")
-            console.log(selectValue);
+            // console.log(selectValue);
             for (let j = 0; j < dataArr.length; j++) {
               if (dataArr[j].indexOf(selectValue[0]) >= 0) {
                 // console.log("data found pada dataArray ke" + j)
@@ -159,6 +166,7 @@
           }
         } 
         setHiddenValue.value = dataArr.toString()
+        // console.log(dataArr);
       })
     }        
   })
