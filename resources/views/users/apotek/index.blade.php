@@ -15,6 +15,14 @@
           </ol>
         </div>
       </div>
+      @if (Session::has('message'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{!! Session::get('message') !!}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @endif
     </div><!-- /.container-fluid -->
   </section>
 
@@ -101,14 +109,16 @@
                 @if (isset(auth()->user()->longlat))
                 {{auth()->user()->longlat}}
                 @else
-                {{ 'Mohon lengkapi pinpoin lokasi anda' }}
+                {{ 'Mohon lengkapi pinpoint lokasi anda' }}
                 @endif
               </p>
               @php
               $query = str_replace(" ", "+", $users["nama_apotek"]);
               $pinpoint = str_replace(" ", "", $users['longlat']);
               @endphp
-              <a href="https://www.google.com/maps/place/{{'@' . $pinpoint}},18z/data=!3m1!4b1"
+              {{-- <a href="https://www.google.com/maps/place/{{'@' . $pinpoint}},18z/data=!3m1!4b1"
+                class="btn btn-block btn-info" target="_blank">Lihat di Google Map</a> --}}
+              <a href="https://www.google.com/maps/search/{{$query}}/{{ '@' . $pinpoint }} ,18z/data=!3m1!4b1"
                 class="btn btn-block btn-info" target="_blank">Lihat di Google Map</a>
 
               <hr>
@@ -192,7 +202,7 @@
                   @else
                   <h1 class="text-center">Belum Ada Stok Obat</h1>
                   <p class="text-center">
-                    <a href="#" class="btn btn-info">Tambahkan Stok Sekarang</a>
+                    <button class="btn btn-info" id="checkObat">Tambahkan Stok Obat Sekarang</button>
                   </p>
                   @endif
                 </div>
@@ -257,7 +267,7 @@
                   @else
                   <h1 class="text-center">Belum Ada Stok Alkes</h1>
                   <p class="text-center">
-                    <a href="#" class="btn btn-info">Tambahkan Stok Alkes Sekarang</a>
+                    <button class="btn btn-info" id="checkAlkes">Tambahkan Stok Alkes Sekarang</button>
                   </p>
                   @endif
                 </div>
@@ -272,7 +282,7 @@
                       <label for="no_izin" class="col-sm-2 col-form-label">Nomor izin</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control @error('no_izin') is-invalid @enderror" id="no_izin"
-                          name="no_izin" placeholder="Nomor izin">
+                          name="no_izin" placeholder="Nomor izin" value="{{ old('no_izin') }}">
                         @error('no_izin')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -285,7 +295,8 @@
                       <div class="col-sm-10">
                         <input type="text"
                           class="form-control form-control @error('penanggung_jawab') is-invalid @enderror"
-                          id="penanggung_jawab" name="penanggung_jawab" placeholder="Penanggung jawab">
+                          id="penanggung_jawab" name="penanggung_jawab" placeholder="Penanggung jawab" value="{{
+                            old('penanggung_jawab') }}">
                         @error('penanggung_jawab')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -297,7 +308,7 @@
                       <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat"
-                          name="alamat" placeholder="Alamat" value="{{auth()->user()->alamat}}">
+                          name="alamat" placeholder="Alamat" value="{{old('alamat') }}">
                         @error('alamat')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -365,7 +376,7 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="longlat" class="col-sm-2 col-form-label">Pinpont Lokasi</label>
+                      <label for="longlat" class="col-sm-2 col-form-label">Pinpoint Lokasi</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control @error('longlat') is-invalid @enderror" id="longlat"
                           name="longlat" placeholder="Pinpoint Lokasi ex:-6.227403,106.806142"
@@ -379,7 +390,7 @@
                     </div>
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-block">Simpan</button>
                       </div>
                     </div>
                   </form>
@@ -419,6 +430,8 @@
 <script src="{{asset('template/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('template/dist/js/demo.js')}}"></script>
+{{-- sweetalert --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- page script -->
 <script>
   capitalizeTheFirstLetterOfEachWord = (words) => {
@@ -485,6 +498,34 @@
             })
           }
         })
+      }
+    })
+// {{route('manage-medichine.index')}}
+    let izin = "{{ auth()->user()->no_izin . auth()->user()->penanggung_jawab . auth()->user()->alamat }}";
+    $('#checkObat').on('click', (e) => {
+      if (izin.length < 20 || izin.length == 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Perhatian!',
+          text: 'Mohon lengkapi data apotek anda terlebih dahulu!',
+          timer: 1500,
+          timerProgressBar: true,
+        })
+      } else {
+        document.location.href = "{{route('manage-medichine.index')}}"
+      }
+    })
+    $('#checkAlkes').on('click', (e) => {
+      if (izin.length < 20 || izin.length == 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Perhatian!',
+          text: 'Mohon lengkapi data apotek anda terlebih dahulu!',
+          timer: 1500,
+          timerProgressBar: true,
+        })
+      } else {
+        document.location.href = "{{route('medical-device.index')}}"
       }
     })
   })

@@ -206,7 +206,7 @@ class MedicalDeviceController extends Controller
             'cari_alkes' => 'required|min:3'
         ]);
 
-        $title = 'Hasil Pencarian';
+        $title = 'Hasil Pencarian Alkes';
         $medicalEquipments = MedicalEquipment::where('nama', 'like', "%$request->cari_alkes%")->paginate(10);
         return view('users.medicalDevice.search', compact('title', 'medicalEquipments'));
     }

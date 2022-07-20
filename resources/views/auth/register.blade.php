@@ -57,14 +57,14 @@
                 </div>
                 <div class="input-group mb-3">
                     <input type="password" id="password-confirm" name="password_confirmation"
-                        class="form-control @error('password-confirm') is-invalid @enderror"
+                        class="form-control @error('password_confirmation') is-invalid @enderror"
                         placeholder="Konfirmasi password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
                         </div>
                     </div>
-                    @error('password-confirm')
+                    @error('password_confirmation')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -73,11 +73,17 @@
                 <div class="row">
                     <div class="col-8">
                         <div class="icheck-primary">
-                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                            <input type="checkbox" id="agreeTerms" name="terms" value="agree"
+                                class="form-control @error('terms') is-invalid @enderror">
                             <label for="agreeTerms">
                                 Saya setuju dengan <a href="#" data-toggle="modal" data-target="#syarat">S & K</a>
                             </label>
                         </div>
+                        @error('terms')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <!-- /.col -->
                     <div class="col-4">

@@ -32,7 +32,8 @@
         </li>
         <li class="nav-header">Kelola Obat</li>
         <li class="nav-item">
-          <a href="{{route('manage-medichine.index')}}" class="nav-link">
+          <a href="{{route('manage-medichine.index')}}"
+            class="nav-link {{ ($title == 'Kelola Obat' || $title == 'Hasil Pencarian') ? " active" : "" }}">
             <i class="nav-icon far fa-image"></i>
             <p>
               List Semua Obat
@@ -41,7 +42,8 @@
         </li>
         <li class="nav-header">Kelola Alkes</li>
         <li class="nav-item">
-          <a href="{{(route('medical-device.index'))}}" class="nav-link">
+          <a href="{{(route('medical-device.index'))}}"
+            class="nav-link {{ ($title == 'Alkes' || $title == 'Hasil Pencarian Alkes') ? " active" : "" }}">
             <i class="nav-icon far fa-image"></i>
             <p>
               List Semua Alkes
@@ -49,7 +51,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('medical-device.create') }}" class="nav-link">
+          <a href="{{ route('medical-device.create') }}" class="nav-link {{ ($title == 'Tambah Alkes') ? " active" : ""
+            }}">
             <i class="nav-icon fas fa-plus-square"></i>
             <p>
               Tambah Alkes

@@ -42,6 +42,9 @@
   <!-- ./wrapper -->
 
   @stack('addon-script')
+  <script>
+
+  </script>
 </body>
 
 </html>

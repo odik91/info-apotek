@@ -67,6 +67,7 @@
                   </tr>
                 </thead>
                 <tbody id="status">
+                  @if (count($medichines) > 0)
                   @foreach ($medichines as $key => $medichine)
                   <tr>
                     <td>{{ ++$key }}</td>
@@ -90,6 +91,10 @@
                     </td>
                   </tr>
                   @endforeach
+                  @else
+                  <h1 class="text-center">Obat Tidak Ditemukan</h1>
+                  @endif
+
                 </tbody>
               </table>
               <div class="container">

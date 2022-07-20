@@ -128,8 +128,24 @@
 <script src="{{asset('template/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('template/dist/js/demo.js')}}"></script>
+{{-- sweetalert --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   $(document).ready(() => {
+    let izin = "{{ auth()->user()->no_izin . auth()->user()->penanggung_jawab . auth()->user()->alamat }}";
+    if (izin.length < 20 || izin.length == 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Perhatian!',
+        text: 'Mohon lengkapi data apotek anda terlebih dahulu!',
+        timer: 1400,
+        timerProgressBar: true,
+      })
+      setTimeout(() => {
+        document.location.href = "{{route('apotek.index')}}"
+      }, "1500")
+    }
+
     let selectElement = $('select[name="status[]"]')
     let selectOption = $("#status > tr > td > select")
     let setHiddenValue = document.getElementById("sendArr")
