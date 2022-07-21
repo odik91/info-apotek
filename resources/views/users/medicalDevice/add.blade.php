@@ -49,7 +49,7 @@
                     <div class="form-group">
                       <label for="nama">Nama Alkes</label>
                       <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                        placeholder="Nama Alkes">
+                        placeholder="Nama Alkes" value="{{old('nama')}}">
                       @error('nama')
                       <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -58,64 +58,100 @@
                     </div>
                     <div class="form-group">
                       <label for="kelompok_alkes_id">Kelompok Alkes</label>
-                      <select class="form-control" name="kelompok_alkes_id" id="kelompok_alkes_id">
+                      <select class="form-control @error('kelompok_alkes_id') is-invalid @enderror"
+                        name="kelompok_alkes_id" id="kelompok_alkes_id">
                         <option selected disabled>Pilih Kelompok Alkes</option>
                         @foreach (App\Models\MedicalDeviceGroup::orderBy('nama_kelompok_alat_kesehatan', 'asc')->get()
                         as $item)
-                        <option value="{{$item['id']}}">
+                        <option value="{{$item['id']}}" @if(old('kelompok_alkes_id')==$item['id']) {{ 'selected' }}
+                          @endif>
                           {{ $item['nama_kelompok_alat_kesehatan'] }}
                         </option>
                         @endforeach
                       </select>
+                      @error('kelompok_alkes_id')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label for="kategori_alkes_id">Kategori Alkes</label>
-                      <select class="form-control" name="kategori_alkes_id" id="kategori_alkes_id">
+                      <select class="form-control @error('kategori_alkes_id') is-invalid @enderror"
+                        name="kategori_alkes_id" id="kategori_alkes_id">
                         <option selected disabled>Pilih Kategori Alkes</option>
                         @foreach (App\Models\MedicalDeviceCategory::orderBy('nama_kategori_alkes',
                         'asc')->get()
                         as $item)
-                        <option value="{{$item['id']}}">
+                        <option value="{{$item['id']}}" @if(old('kategori_alkes_id')==$item['id']) {{ 'selected' }}
+                          @endif>
                           {{ $item['nama_kategori_alkes'] }}
                         </option>
                         @endforeach
                       </select>
+                      @error('kategori_alkes_id')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label for="kelas_alkes_id">Kelas Alkes</label>
-                      <select class="form-control" name="kelas_alkes_id" id="kelas_alkes_id">
+                      <select class="form-control @error('kelas_alkes_id') is-invalid @enderror" name="kelas_alkes_id"
+                        id="kelas_alkes_id">
                         <option selected disabled>Pilih Kelas Alkes</option>
                         @foreach (App\Models\MedicalDeviceClass::orderBy('id', 'asc')->get() as $medicalDeviceClass)
-                        <option value="{{$medicalDeviceClass['id']}}">{{ $medicalDeviceClass['nama_kelas_alkes'] }}
+                        <option value="{{$medicalDeviceClass['id']}}"
+                          @if(old('kelas_alkes_id')==$medicalDeviceClass['id']) {{ 'selected' }} @endif>{{
+                          $medicalDeviceClass['nama_kelas_alkes'] }}
                         </option>
                         @endforeach
                       </select>
+                      @error('kelas_alkes_id')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label for="kelas_resiko_alkes_id">Kelas Resiko Alkes</label>
-                      <select class="form-control" name="kelas_resiko_alkes_id" id="kelas_resiko_alkes_id">
+                      <select class="form-control @error('kelas_resiko_alkes_id') is-invalid @enderror"
+                        name="kelas_resiko_alkes_id" id="kelas_resiko_alkes_id">
                         <option selected disabled>Pilih Kelas Resiko Alkes</option>
                         @foreach (App\Models\MedicalDeviceRiskClass::orderBy('id', 'asc')->get() as
                         $MedicalDeviceRiskClass)
-                        <option value="{{$MedicalDeviceRiskClass['id']}}">{{
+                        <option value="{{$MedicalDeviceRiskClass['id']}}"
+                          @if(old('kelas_resiko_alkes_id')==$MedicalDeviceRiskClass['id']) {{ 'selected' }} @endif>{{
                           $MedicalDeviceRiskClass['nama_kelas_resiko_alkes']
                           }}
                         </option>
                         @endforeach
                       </select>
+                      @error('kelas_resiko_alkes_id')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label for="sifat_alkes_id">Sifat Alkes</label>
-                      <select class="form-control" name="sifat_alkes_id" id="sifat_alkes_id">
+                      <select class="form-control @error('sifat_alkes_id') is-invalid @enderror" name="sifat_alkes_id"
+                        id="sifat_alkes_id">
                         <option selected disabled>Pilih Sifat Alkes</option>
                         @foreach (App\Models\MedicalDeviceProperties::orderBy('id', 'asc')->get() as
                         $MedicalDeviceProperty)
-                        <option value="{{$MedicalDeviceProperty['id']}}">{{
+                        <option value="{{$MedicalDeviceProperty['id']}}"
+                          @if(old('sifat_alkes_id')==$MedicalDeviceProperty['id']) {{ 'selected' }} @endif>{{
                           $MedicalDeviceProperty['nama_sifat_alkes']
                           }}
                         </option>
                         @endforeach
                       </select>
+                      @error('sifat_alkes_id')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
                     </div>
                     <div class="form-group form-check">
                       <input type="checkbox" class="form-check-input" id="ada" name="ada" value="ada">

@@ -53,6 +53,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
+              @if (count($medicalEquipments) > 0)
               <table class="table table-hover text-nowrap">
                 <thead>
                   <tr>
@@ -98,11 +99,15 @@
                   @endforeach
                 </tbody>
               </table>
+              @else
+              <h1 class="text-center">Alkes Tidak Ditemukan</h1>
+              @endif
               <div class="container">
                 <div class="row justify-content-center">
                   {{ $medicalEquipments->links('vendor.pagination.custom') }}
                 </div>
               </div>
+              @if (count($medicalEquipments) > 0)
               <div class="container">
                 <div class="row align-items-end justify-content-center">
                   <a href="{{route('apotek.index')}}" class="btn btn-secondary mx-2 mb-5 px-5" id="batal">Batal</a>
@@ -113,6 +118,7 @@
                   </form>
                 </div>
               </div>
+              @endif
             </div>
             <!-- /.card-body -->
           </div>

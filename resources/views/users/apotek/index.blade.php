@@ -118,23 +118,28 @@
               @endphp
               {{-- <a href="https://www.google.com/maps/place/{{'@' . $pinpoint}},18z/data=!3m1!4b1"
                 class="btn btn-block btn-info" target="_blank">Lihat di Google Map</a> --}}
-              <a href="https://www.google.com/maps/search/{{$query}}/{{ '@' . $pinpoint }} ,18z/data=!3m1!4b1"
-                class="btn btn-block btn-info" target="_blank">Lihat di Google Map</a>
+              {{-- <a href="https://www.google.com/maps/search/{{$query}}/{{ '@' . $pinpoint }} ,18z/data=!3m1!4b1"
+                class="btn btn-block btn-info" target="_blank">Lihat di Google Map</a> --}}
+              @if (auth()->user()->longlat)
+              {!! "<a href='https://www.google.com/maps/search/" . $query . "/@" . $pinpoint . ",18z/data=!3m1!4b1'" . 
+                ' class=" btn btn-block btn-info"' . 'target="_blank">Lihat di Google Map</a>' !!} @else {!!'<button
+                class="btn btn-block btn-info" id="pinpointWarning">Lihat di Google Map</button>'!!}
+                @endif
 
-              <hr>
+                <hr>
 
-              <strong><i class="fas fa-pills"></i> Jumlah Jenis Obat Tersedia</strong>
-              <p class="text-muted">
-                <span class="tag tag-danger">{{ count($qtyMedichineStock) }}</span>
-              </p>
+                <strong><i class="fas fa-pills"></i> Jumlah Jenis Obat Tersedia</strong>
+                <p class="text-muted">
+                  <span class="tag tag-danger">{{ count($qtyMedichineStock) }}</span>
+                </p>
 
-              <hr>
+                <hr>
 
-              <strong><i class="fas fa-microscope"></i> Jumlah Jenis Alkes Tersedia</strong>
+                <strong><i class="fas fa-microscope"></i> Jumlah Jenis Alkes Tersedia</strong>
 
-              <p class="text-muted">
-                <span class="tag tag-danger">{{ count($medicalEquipmentStocks) }}</span>
-              </p>
+                <p class="text-muted">
+                  <span class="tag tag-danger">{{ count($medicalEquipmentStocks) }}</span>
+                </p>
             </div>
             <!-- /.card-body -->
           </div>
@@ -435,8 +440,8 @@
 <!-- page script -->
 <script>
   capitalizeTheFirstLetterOfEachWord = (words) => {
-    var separateWord = words.toLowerCase().split(' ');
-    for (var i = 0; i < separateWord.length; i++) {
+    let separateWord = words.toLowerCase().split(' ');
+    for (let i = 0; i < separateWord.length; i++) {
         separateWord[i] = separateWord[i].charAt(0).toUpperCase() +
         separateWord[i].substring(1);
     }
@@ -501,7 +506,7 @@
       }
     })
 // {{route('manage-medichine.index')}}
-    let izin = "{{ auth()->user()->no_izin . auth()->user()->penanggung_jawab . auth()->user()->alamat }}";
+    let izin = "{{ auth()->user()->no_izin . auth()->user()->penanggung_jawab . auth()->user()->alamat }}";    
     $('#checkObat').on('click', (e) => {
       if (izin.length < 20 || izin.length == 0) {
         Swal.fire({
@@ -515,6 +520,7 @@
         document.location.href = "{{route('manage-medichine.index')}}"
       }
     })
+
     $('#checkAlkes').on('click', (e) => {
       if (izin.length < 20 || izin.length == 0) {
         Swal.fire({
@@ -527,6 +533,16 @@
       } else {
         document.location.href = "{{route('medical-device.index')}}"
       }
+    })
+
+    $('#pinpointWarning').on('click', (e) => {
+      Swal.fire({
+          icon: 'error',
+          title: 'Perhatian!',
+          text: 'Mohon lengkapi informasi pinpoint anda terlebih dahulu!',
+          timer: 2000,
+          timerProgressBar: true,
+        })
     })
   })
 </script>

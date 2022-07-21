@@ -17,6 +17,7 @@ use App\Http\Controllers\MedichinePreparationController;
 use App\Http\Controllers\MedichineSubclassController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,27 +38,33 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// Route pengunjung
+Route::resource('search', SearchController::class);
+Route::get('search-obat', [SearchController::class, 'indexObat'])->name('search.obat');
+Route::get('search-alkes', [SearchController::class, 'indexAlkes'])->name('search.alkes');
 
-Route::prefix('setting')->group(function () {
-    Route::resource('province', ProvinceController::class);
-    Route::resource('kabupaten', CitiesController::class);
-    Route::resource('kecamatan', DistricController::class);
 
-    // route obat
-    Route::resource('kelas-obat', MedichineClassController::class);
-    Route::resource('subkelas-obat', MedichineSubclassController::class);
-    Route::resource('sediaan-obat', MedichinePreparationController::class);
-    Route::resource('obat', MedichineController::class);
-    Route::get('/tambah-obat/{id}', [MedichineController::class, 'ajaxSubkelas'])->name('obat.ajaxSubkelas');
+// Route::prefix('setting')->group(function () {
+//     Route::resource('province', ProvinceController::class);
+//     Route::resource('kabupaten', CitiesController::class);
+//     Route::resource('kecamatan', DistricController::class);
 
-    // route alkes
-    Route::resource('kelompok-alkes', MedicalDeviceGroupController::class);
-    Route::resource('kategori-alkes', MedicalDeviceCategoryConroller::class);
-    Route::resource('kelas-alkes', MedicalDeviceClassController::class);
-    Route::resource('kelas-resiko', MedicalDeviceRiskClassController::class);
-    Route::resource('sifat-alkes', MedicalDevicePropertiesController::class);
-    Route::resource('alkes', MedicalEquipmentController::class);
-});
+//     // route obat
+//     Route::resource('kelas-obat', MedichineClassController::class);
+//     Route::resource('subkelas-obat', MedichineSubclassController::class);
+//     Route::resource('sediaan-obat', MedichinePreparationController::class);
+//     Route::resource('obat', MedichineController::class);
+//     Route::get('/tambah-obat/{id}', [MedichineController::class, 'ajaxSubkelas'])->name('obat.ajaxSubkelas');
+
+//     // route alkes
+//     Route::resource('kelompok-alkes', MedicalDeviceGroupController::class);
+//     Route::resource('kategori-alkes', MedicalDeviceCategoryConroller::class);
+//     Route::resource('kelas-alkes', MedicalDeviceClassController::class);
+//     Route::resource('kelas-resiko', MedicalDeviceRiskClassController::class);
+//     Route::resource('sifat-alkes', MedicalDevicePropertiesController::class);
+//     Route::resource('alkes', MedicalEquipmentController::class);
+// });
+
 route::prefix('admin')->group(function () {
     // route user apotek
     Route::resource('apotek', MainController::class);
