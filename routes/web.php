@@ -18,6 +18,7 @@ use App\Http\Controllers\MedichineSubclassController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\SearchController;
+use phpDocumentor\Reflection\DocBlock\Tags\See;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route pengunjung
 Route::resource('search', SearchController::class);
 Route::get('search-obat', [SearchController::class, 'indexObat'])->name('search.obat');
+Route::get('search-apotek', [SearchController::class, 'searchApotek'])->name('search.searchApotek');
 Route::get('search-alkes', [SearchController::class, 'indexAlkes'])->name('search.alkes');
+Route::get('/view-apotek/{id}', "App\Http\Controllers\SearchController@showApotek")->name('search.showApotek');
 
 
 // Route::prefix('setting')->group(function () {

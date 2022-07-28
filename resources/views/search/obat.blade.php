@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg">
-        <div class="card">
+        <div class="card mt-3">
           <div class="card-body">
             <form>
               <h3 class="text-center text-info"><b>Cari Apotek</b></h3>

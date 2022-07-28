@@ -11,4 +11,9 @@ class MedicalEquipmentStock extends Model
 {
     use HasFactory, Notifiable, SoftDeletes;
     protected $guarded = [];
+
+    public function namaAlkes()
+    {
+        return $this->hasOne(MedicalEquipment::class, 'id', 'alkes_id');
+    }
 }

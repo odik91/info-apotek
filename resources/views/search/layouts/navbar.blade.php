@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-white bg-teal">
   <div class="container">
     <a href="{{'search.index'}}" class="navbar-brand">
       <img src="{{asset('template/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
@@ -16,13 +16,16 @@
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a href="{{route('search.index')}}" class="nav-link active">Apotek</a>
+          <a href="{{route('search.index')}}"
+            class="nav-link {{ isset($title) && $title == 'Apotek' ? 'active' : ''}}">Apotek</a>
         </li>
         <li class="nav-item">
-          <a href="{{route('search.obat')}}" class="nav-link">Obat</a>
+          <a href="{{route('search.obat')}}"
+            class="nav-link {{ isset($title) && $title == 'Obat' ? 'active' : ''}}">Obat</a>
         </li>
         <li class="nav-item">
-          <a href="{{route('search.alkes')}}" class="nav-link">Alat Kesehatan</a>
+          <a href="{{route('search.alkes')}}"
+            class="nav-link {{ isset($title) && $title == 'Alkes' ? 'active' : ''}}">Alat Kesehatan</a>
         </li>
       </ul>
     </div>

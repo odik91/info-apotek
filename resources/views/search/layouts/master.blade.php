@@ -18,6 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('template/dist/css/adminlte.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  @stack('addon-css')
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -28,8 +29,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
-      <div class="content-header">
-      </div>
+      {{-- <div class="content-header">
+      </div> --}}
       <!-- /.content-header -->
 
       @yield('content')
@@ -48,6 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="{{asset('template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <!-- AdminLTE App -->
   <script src="{{asset('template/dist/js/adminlte.min.js')}}"></script>
+  @stack('addon-script')
 </body>
 
 </html>
