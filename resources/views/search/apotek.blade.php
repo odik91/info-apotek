@@ -176,9 +176,6 @@
                 <!-- /.datatable -->
                 @else
                 <h1 class="text-center">Belum Ada Stok Obat</h1>
-                <p class="text-center">
-                  <button class="btn btn-info" id="checkObat">Tambahkan Stok Obat Sekarang</button>
-                </p>
                 @endif
               </div>
               <!-- /.tab-pane -->
@@ -249,9 +246,6 @@
                 </table>
                 @else
                 <h1 class="text-center">Belum Ada Stok Alkes</h1>
-                <p class="text-center">
-                  <button class="btn btn-info" id="checkAlkes">Tambahkan Stok Alkes Sekarang</button>
-                </p>
                 @endif
               </div>
               <!-- /.tab-pane -->
