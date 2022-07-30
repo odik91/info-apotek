@@ -41,10 +41,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Route pengunjung
 Route::resource('search', SearchController::class);
-Route::get('search-obat', [SearchController::class, 'indexObat'])->name('search.obat');
+
+// route search apotek
 Route::get('search-apotek', [SearchController::class, 'searchApotek'])->name('search.searchApotek');
-Route::get('search-alkes', [SearchController::class, 'indexAlkes'])->name('search.alkes');
 Route::get('/view-apotek/{id}', "App\Http\Controllers\SearchController@showApotek")->name('search.showApotek');
+
+// route search obat
+Route::get('search-obat', [SearchController::class, 'indexObat'])->name('search.obat');
+Route::get('search-obat-result', [SearchController::class, 'searchObat'])->name('search.searchObat');
+
+// route search alkes
+Route::get('search-alkes', [SearchController::class, 'indexAlkes'])->name('search.alkes');
 
 
 // Route::prefix('setting')->group(function () {

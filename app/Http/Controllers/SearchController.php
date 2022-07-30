@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\MedichineStock;
 use App\Models\MedicalEquipmentStock;
 use App\Models\MedicalEquipment;
+use App\Models\Medichine;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -106,19 +107,19 @@ class SearchController extends Controller
         $title = 'Hasil Pencarian';
 
         if (isset($request->apotek) && isset($request->provinsi_id) && isset($request->kabupaten_id) && isset($request->kecamatan_id)) {
-            $results = User::where('nama_apotek', 'like', "%$request->apotek")->where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->where('kecamatan_id', $request->kecamatan_id)->paginate(12, ['id', 'nama_apotek', 'email', 'no_izin', 'penanggung_jawab', 'alamat', 'kecamatan_id', 'kabupaten_id', 'provinsi_id', 'no_telepon', 'longlat']);
+            $results = User::where('nama_apotek', 'like', "%$request->apotek%")->where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->where('kecamatan_id', $request->kecamatan_id)->paginate(12, ['id', 'nama_apotek', 'email', 'no_izin', 'penanggung_jawab', 'alamat', 'kecamatan_id', 'kabupaten_id', 'provinsi_id', 'no_telepon', 'longlat']);
 
-            $searchCounts = User::where('nama_apotek', 'like', "%$request->apotek")->where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->where('kecamatan_id', $request->kecamatan_id)->count();
+            $searchCounts = User::where('nama_apotek', 'like', "%$request->apotek%")->where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->where('kecamatan_id', $request->kecamatan_id)->count();
         } elseif (isset($request->apotek) && isset($request->provinsi_id) && isset($request->kabupaten_id)) {
-            $results = User::where('nama_apotek', 'like', "%$request->apotek")->where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->paginate(12, ['id', 'nama_apotek', 'email', 'no_izin', 'penanggung_jawab', 'alamat', 'kecamatan_id', 'kabupaten_id', 'provinsi_id', 'no_telepon', 'longlat']);
+            $results = User::where('nama_apotek', 'like', "%$request->apotek%")->where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->paginate(12, ['id', 'nama_apotek', 'email', 'no_izin', 'penanggung_jawab', 'alamat', 'kecamatan_id', 'kabupaten_id', 'provinsi_id', 'no_telepon', 'longlat']);
 
-            $searchCounts = User::where('nama_apotek', 'like', "%$request->apotek")->where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->count();
+            $searchCounts = User::where('nama_apotek', 'like', "%$request->apotek%")->where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->count();
         } elseif (isset($request->apotek) && isset($request->provinsi_id)) {
-            $results = User::where('nama_apotek', 'like', "%$request->apotek")->where('provinsi_id', $request->provinsi_id)->paginate(12, ['id', 'nama_apotek', 'email', 'no_izin', 'penanggung_jawab', 'alamat', 'kecamatan_id', 'kabupaten_id', 'provinsi_id', 'no_telepon', 'longlat']);
+            $results = User::where('nama_apotek', 'like', "%$request->apotek%")->where('provinsi_id', $request->provinsi_id)->paginate(12, ['id', 'nama_apotek', 'email', 'no_izin', 'penanggung_jawab', 'alamat', 'kecamatan_id', 'kabupaten_id', 'provinsi_id', 'no_telepon', 'longlat']);
 
             $searchCounts = User::where('nama_apotek', 'like', "%$request->apotek")->where('provinsi_id', $request->provinsi_id)->count();
         } elseif (isset($request->apotek)) {
-            $results = User::where('id', 'nama_apotek', 'like', "%$request->apotek")->paginate(12, ['nama_apotek', 'email', 'no_izin', 'penanggung_jawab', 'alamat', 'kecamatan_id', 'kabupaten_id', 'provinsi_id', 'no_telepon', 'longlat']);
+            $results = User::where('nama_apotek', 'like', "%$request->apotek%")->paginate(12, ['id', 'nama_apotek', 'email', 'no_izin', 'penanggung_jawab', 'alamat', 'kecamatan_id', 'kabupaten_id', 'provinsi_id', 'no_telepon', 'longlat']);
 
             $searchCounts = User::where('nama_apotek', 'like', "%$request->apotek")->count();
         } elseif (isset($request->provinsi_id) && isset($request->kabupaten_id) && isset($request->kecamatan_id)) {
@@ -152,5 +153,92 @@ class SearchController extends Controller
         $medicalEquipmentsStockList = MedicalEquipmentStock::where('apotek_id', $id)->get();
 
         return view('search.apotek', compact('title', 'apotek', 'qtyMedichineStock', 'medicalEquipmentStocks', 'medichine_stocks', 'medicalEquipmentsStockList'));
+    }
+
+    public function searchObat(Request $request)
+    {
+        $items = [];
+        $title = 'Hasil Pencarian';
+        $results = null;
+
+        if ($request['nama_obat'] == null) {
+            $results = Medichine::orderBy('nama_obat', 'asc')->get(['id', 'nama_obat', 'kelas_obat_id', 'subkelas_obat_id', 'sediaan_obat_id', 'kekuatan', 'satuan']);
+        } else {
+            $results = Medichine::where('nama_obat', 'like', "%$request->nama_obat%")->get(['id', 'nama_obat', 'kelas_obat_id', 'subkelas_obat_id', 'sediaan_obat_id', 'kekuatan', 'satuan']);
+        }
+
+        foreach ($results as $result) {
+            $medichinePharmacies = MedichineStock::where('obat_id', $result['id'])->get();
+
+            foreach ($medichinePharmacies as $medichinePharmacy) {
+                if ($request['provinsi_id'] == null && $request['kabupaten_id'] == null && $request['kecamatan_id'] == null) {
+                    array_push($items, (object)[
+                        'obat_id' => $result['id'],
+                        'nama_obat' => $result['nama_obat'],
+                        'kelas_obat_id' => $result['kelas_obat_id'],
+                        'subkelas_obat_id' => $result['subkelas_obat_id'],
+                        'sediaan_obat_id' => $result['sediaan_obat_id'],
+                        'kekuatan' => $result['kekuatan'],
+                        'satuan' => $result['satuan'],
+                        'apotek_id' => $medichinePharmacy['apotek_id'],
+                        'status' => $medichinePharmacy['status']
+                    ]);
+                } elseif (isset($request['provinsi_id']) && isset($request['kabupaten_id']) && isset($request['kecamatan_id'])) {
+                    $findPharmacies = User::where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->where('kecamatan_id', $request->kecamatan_id)->get('id');
+                    foreach ($findPharmacies as $findPharmacy) {
+                        if ($findPharmacy['id'] == $medichinePharmacy['apotek_id']) {
+                            array_push($items, (object)[
+                                'obat_id' => $result['id'],
+                                'nama_obat' => $result['nama_obat'],
+                                'kelas_obat_id' => $result['kelas_obat_id'],
+                                'subkelas_obat_id' => $result['subkelas_obat_id'],
+                                'sediaan_obat_id' => $result['sediaan_obat_id'],
+                                'kekuatan' => $result['kekuatan'],
+                                'satuan' => $result['satuan'],
+                                'apotek_id' => $findPharmacy['id'],
+                                'status' => $medichinePharmacy['status']
+                            ]);
+                        }
+                    }
+                } elseif (isset($request['provinsi_id']) && isset($request['kabupaten_id'])) {
+                    $findPharmacies = User::where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->get('id');
+                    foreach ($findPharmacies as $findPharmacy) {
+                        if ($findPharmacy['id'] == $medichinePharmacy['apotek_id']) {
+                            array_push($items, (object)[
+                                'obat_id' => $result['id'],
+                                'nama_obat' => $result['nama_obat'],
+                                'kelas_obat_id' => $result['kelas_obat_id'],
+                                'subkelas_obat_id' => $result['subkelas_obat_id'],
+                                'sediaan_obat_id' => $result['sediaan_obat_id'],
+                                'kekuatan' => $result['kekuatan'],
+                                'satuan' => $result['satuan'],
+                                'apotek_id' => $findPharmacy['id'],
+                                'status' => $medichinePharmacy['status']
+                            ]);
+                        }
+                    }
+                } elseif (isset($request['provinsi_id'])) {
+                    $findPharmacies = User::where('provinsi_id', $request->provinsi_id)->get('id');
+                    foreach ($findPharmacies as $findPharmacy) {
+                        if ($findPharmacy['id'] == $medichinePharmacy['apotek_id']) {
+                            array_push($items, (object)[
+                                'obat_id' => $result['id'],
+                                'nama_obat' => $result['nama_obat'],
+                                'kelas_obat_id' => $result['kelas_obat_id'],
+                                'subkelas_obat_id' => $result['subkelas_obat_id'],
+                                'sediaan_obat_id' => $result['sediaan_obat_id'],
+                                'kekuatan' => $result['kekuatan'],
+                                'satuan' => $result['satuan'],
+                                'apotek_id' => $findPharmacy['id'],
+                                'status' => $medichinePharmacy['status']
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+
+        $searchCounts = count($items);
+        return view('search.hasilObat', compact('title', 'searchCounts', 'items'));
     }
 }

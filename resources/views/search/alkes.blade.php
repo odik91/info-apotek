@@ -8,7 +8,7 @@
         <div class="card mt-3">
           <div class="card-body">
             <form>
-              <h3 class="text-center text-info"><b>Cari Apotek</b></h3>
+              <h3 class="text-center text-info"><b>Cari Alkes</b></h3>
               <div class="form-group">
                 <input type="text" class="form-control rounded-pill border-primary" id="apotek"
                   placeholder="Cari Apotek">

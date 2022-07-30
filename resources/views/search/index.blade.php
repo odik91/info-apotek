@@ -9,7 +9,7 @@
         <div class="card mt-3">
           <div class="card-body">
             <form method="GET" action="{{route('search.searchApotek')}}">
-              <h3 class="text-center"><b>Cari Apotek</b></h3>
+              <h3 class="text-center text-info"><b>Cari Apotek</b></h3>
               <div class="form-group">
                 <input type="text" class="form-control rounded-pill border-primary" id="apotek" name="apotek"
                   placeholder="Cari Apotek">
