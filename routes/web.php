@@ -56,7 +56,7 @@ Route::get('search-alkes', [SearchController::class, 'indexAlkes'])->name('searc
 Route::get('search-alkes-result', [SearchController::class, 'searchAlkes'])->name('search.searchAlkes');
 Route::get('detail-alkes-result/{apotek}/{medicalDevice}', [SearchController::class, 'viewDetailMedicalDevice'])->name('search.viewDetailMedicalDevice');
 
-
+// This route below used for webmaster
 // Route::prefix('setting')->group(function () {
 //     Route::resource('province', ProvinceController::class);
 //     Route::resource('kabupaten', CitiesController::class);
