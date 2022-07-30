@@ -49,9 +49,12 @@ Route::get('/view-apotek/{id}', "App\Http\Controllers\SearchController@showApote
 // route search obat
 Route::get('search-obat', [SearchController::class, 'indexObat'])->name('search.obat');
 Route::get('search-obat-result', [SearchController::class, 'searchObat'])->name('search.searchObat');
+Route::get('detail-obat-result/{apotek}/{medichine}', [SearchController::class, 'viewDetailMedichine'])->name('search.viewDetailMedichine');
 
 // route search alkes
 Route::get('search-alkes', [SearchController::class, 'indexAlkes'])->name('search.alkes');
+Route::get('search-alkes-result', [SearchController::class, 'searchAlkes'])->name('search.searchAlkes');
+Route::get('detail-alkes-result/{apotek}/{medicalDevice}', [SearchController::class, 'viewDetailMedicalDevice'])->name('search.viewDetailMedicalDevice');
 
 
 // Route::prefix('setting')->group(function () {

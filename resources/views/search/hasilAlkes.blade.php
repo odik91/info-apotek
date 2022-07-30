@@ -6,13 +6,13 @@
   <div class="py-2"></div>
   <div class="card card-solid">
     <div class="card-body mb-2">
-      <form method="GET" action="{{route('search.searchObat')}}">
-        <h3 class="text-center font-weight-bold text-teal">CARI OBAT</h3>
+      <form method="GET" action="{{route('search.searchAlkes')}}">
+        <h3 class="text-center font-weight-bold text-teal">CARI ALAT KESEHATAN</h3>
         <div class="form-row">
           <div class="form-group col-md">
-            <label for="nama_obat">Obat</label>
-            <input type="text" class="form-control rounded-pill border-primary" id="apotek" name="nama_obat"
-              placeholder="Cari Obat">
+            <label for="nama_alkes">Alkes</label>
+            <input type="text" class="form-control rounded-pill border-primary" id="apotek" name="nama_alkes"
+              placeholder="Cari Alat Kesehatan">
           </div>
           <div class="form-group col-md">
             <label for="provinsi_id">Provinsi</label>
@@ -54,9 +54,9 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Nama Obat</th>
-            <th>Kekuatan</th>
-            <th>Sediaan</th>
+            <th>Nama Alkes</th>
+            <th>Kelompok Alkes</th>
+            <th>Kategori Alkes</th>
             <th>Apotek</th>
             <th>Aalamat</th>
             <th>Status</th>
@@ -71,12 +71,14 @@
           @endphp
           <tr>
             <td>{{ ++$key }}</td>
-            <td class="text-wrap">{{ ucwords($item->nama_obat) }}</td>
+            <td class="text-wrap">{{ ucwords($item->nama_alkes) }}</td>
             <td class="text-wrap">
-              {{ ucwords($item->kekuatan) . " " . $item->satuan }}
+              {{ ucwords(App\Models\MedicalDeviceGroup::where('id',
+              $item->kelompok_alkes_id)->first()->nama_kelompok_alat_kesehatan) }}
             </td>
             <td class="text-wrap">
-              {{ App\Models\MedichinePreparation::where('id', $item->sediaan_obat_id)->first()->sediaan_obat }}
+              {{ App\Models\MedicalDeviceCategory::where('id', $item->kategori_alkes_id)->first()->nama_kategori_alkes
+              }}
             </td>
             <td class="text-wrap">
               {{ ucwords($apotek['nama_apotek']) }}
@@ -86,17 +88,19 @@
               $apotek->userCity->nama_kabupaten_kota . " " . $apotek->userProvince->nama_provinsi) }}
             </td>
             <td class="text-wrap">{{ ucwords($item->status) }}</td>
-            <td><a href="{{ route('search.viewDetailMedichine', [$item->apotek_id, $item->obat_id]) }}"
-                class="btn-info btn-block rounded-pill text-center">Lihat</a></td>
+            <td>
+              <a href="{{ route('search.viewDetailMedicalDevice', [$item->apotek_id, $item->alkes_id]) }}"
+                class="btn-info btn-block rounded-pill text-center px-3">Lihat</a>
+            </td>
           </tr>
           @endforeach
         </tbody>
         <tfoot>
           <tr>
             <th>No</th>
-            <th>Nama Obat</th>
-            <th>Kekuatan</th>
-            <th>Sediaan</th>
+            <th>Nama Alkes</th>
+            <th>Kelompok Alkes</th>
+            <th>Kategori Alkes</th>
             <th>Apotek</th>
             <th>Aalamat</th>
             <th>Status</th>

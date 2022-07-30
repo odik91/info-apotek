@@ -241,4 +241,111 @@ class SearchController extends Controller
         $searchCounts = count($items);
         return view('search.hasilObat', compact('title', 'searchCounts', 'items'));
     }
+
+    public function viewDetailMedichine($apotek, $medichine)
+    {
+        $medichine = MedichineStock::where('obat_id', $medichine)->where('apotek_id', $apotek)->first(['id', 'apotek_id', 'obat_id', 'status']);
+        $apotek = User::where('id', $apotek)->first();
+        $title = ucfirst($medichine->getMedichineName['nama_obat']);
+        return view('search.detailHasilObat', compact('title', 'medichine', 'apotek'));
+    }
+
+    public function searchAlkes(Request $request)
+    {
+        $items = [];
+        $title = 'Hasil Pencarian';
+        $results = null;
+
+        if ($request['nama_alkes'] == null) {
+            $results = MedicalEquipment::orderBy('nama', 'asc')->get(['id', 'nama', 'kelompok_alkes_id', 'kategori_alkes_id', 'kelas_alkes_id', 'kelas_resiko_alkes_id', 'sifat_alkes_id']);
+        } else {
+            $results = MedicalEquipment::where('nama', 'like', "%$request->nama_alkes%")->orderBy('nama', 'asc')->get(['id', 'nama', 'kelompok_alkes_id', 'kategori_alkes_id', 'kelas_alkes_id', 'kelas_resiko_alkes_id', 'sifat_alkes_id']);
+        }
+
+        foreach ($results as $result) {
+            $medicalEquipmentStocks = MedicalEquipmentStock::where('alkes_id', $result['id'])->get();
+
+            foreach ($medicalEquipmentStocks as $medicalEquipmentStock) {
+                if ($request['provinsi_id'] == null && $request['kabupaten_id'] == null && $request['kecamatan_id'] == null) {
+                    array_push($items, (object)[
+                        'alkes_id' => $result['id'],
+                        'nama_alkes' => $result['nama'],
+                        'kelompok_alkes_id' => $result['kelompok_alkes_id'],
+                        'kategori_alkes_id' => $result['kategori_alkes_id'],
+                        'kelas_alkes_id' => $result['kelas_alkes_id'],
+                        'kelas_resiko_alkes_id' => $result['kelas_resiko_alkes_id'],
+                        'sifat_alkes_id' => $result['sifat_alkes_id'],
+                        'apotek_id' => $medicalEquipmentStock['apotek_id'],
+                        'status' => $medicalEquipmentStock['status'],
+                    ]);
+                } elseif (isset($request['provinsi_id']) && isset($request['kabupaten_id']) && isset($request['kecamatan_id'])) {
+                    $findPharmacies = User::where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->where('kecamatan_id', $request->kecamatan_id)->get('id');
+
+                    foreach ($findPharmacies as $findPharmacy) {
+                        if ($findPharmacy['id'] == $medicalEquipmentStock['apotek_id']) {
+                            array_push($items, (object)[
+                                'alkes_id' => $result['id'],
+                                'nama_alkes' => $result['nama'],
+                                'kelompok_alkes_id' => $result['kelompok_alkes_id'],
+                                'kategori_alkes_id' => $result['kategori_alkes_id'],
+                                'kelas_alkes_id' => $result['kelas_alkes_id'],
+                                'kelas_resiko_alkes_id' => $result['kelas_resiko_alkes_id'],
+                                'sifat_alkes_id' => $result['sifat_alkes_id'],
+                                'apotek_id' => $medicalEquipmentStock['apotek_id'],
+                                'status' => $medicalEquipmentStock['status'],
+                            ]);
+                        }
+                    }
+                } elseif (isset($request['provinsi_id']) && isset($request['kabupaten_id'])) {
+                    $findPharmacies = User::where('provinsi_id', $request->provinsi_id)->where('kabupaten_id', $request->kabupaten_id)->get('id');
+
+                    foreach ($findPharmacies as $findPharmacy) {
+                        if ($findPharmacy['id'] == $medicalEquipmentStock['apotek_id']) {
+                            array_push($items, (object)[
+                                'alkes_id' => $result['id'],
+                                'nama_alkes' => $result['nama'],
+                                'kelompok_alkes_id' => $result['kelompok_alkes_id'],
+                                'kategori_alkes_id' => $result['kategori_alkes_id'],
+                                'kelas_alkes_id' => $result['kelas_alkes_id'],
+                                'kelas_resiko_alkes_id' => $result['kelas_resiko_alkes_id'],
+                                'sifat_alkes_id' => $result['sifat_alkes_id'],
+                                'apotek_id' => $medicalEquipmentStock['apotek_id'],
+                                'status' => $medicalEquipmentStock['status'],
+                            ]);
+                        }
+                    }
+                } elseif (isset($request['provinsi_id'])) {
+                    $findPharmacies = User::where('provinsi_id', $request->provinsi_id)->get('id');
+
+                    foreach ($findPharmacies as $findPharmacy) {
+                        if ($findPharmacy['id'] == $medicalEquipmentStock['apotek_id']) {
+                            array_push($items, (object)[
+                                'alkes_id' => $result['id'],
+                                'nama_alkes' => $result['nama'],
+                                'kelompok_alkes_id' => $result['kelompok_alkes_id'],
+                                'kategori_alkes_id' => $result['kategori_alkes_id'],
+                                'kelas_alkes_id' => $result['kelas_alkes_id'],
+                                'kelas_resiko_alkes_id' => $result['kelas_resiko_alkes_id'],
+                                'sifat_alkes_id' => $result['sifat_alkes_id'],
+                                'apotek_id' => $medicalEquipmentStock['apotek_id'],
+                                'status' => $medicalEquipmentStock['status'],
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+
+        $searchCounts = count($items);
+        return view('search.hasilAlkes', compact('title', 'searchCounts', 'items'));
+    }
+
+    public function viewDetailMedicalDevice($apotek, $medicalDevice)
+    {
+        $medicalDevice = MedicalEquipmentStock::where('alkes_id', $medicalDevice)->where('apotek_id', $apotek)->first(['id', 'apotek_id', 'alkes_id', 'status']);
+        // dd($medicalDevice);
+        $apotek = User::where('id', $apotek)->first();
+        $title = ucfirst($medicalDevice->namaAlkes['nama']);
+        return view('search.detailHasilAlkes', compact('title', 'apotek', 'medicalDevice'));
+    }
 }

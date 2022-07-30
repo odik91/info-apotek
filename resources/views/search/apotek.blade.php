@@ -273,6 +273,8 @@
 <script src="{{asset('template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('template/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+{{-- sweetalert --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   $(function () {
     $("#example1").DataTable({
@@ -287,6 +289,16 @@
       "searching": true,
       "ordering": true,
     })
+  })
+
+  $('#pinpointWarning').on('click', (e) => {
+    Swal.fire({
+        icon: 'error',
+        title: 'Maaf!',
+        text: 'Pinpoint untuk apotek ini belum tersedia!',
+        timer: 2000,
+        timerProgressBar: true,
+      })
   })
 </script>
 @endpush

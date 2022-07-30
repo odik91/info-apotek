@@ -17,8 +17,8 @@ class MedichineStock extends Model
         return $this->hasOne(Medichine::class, 'id', 'obat_id');
     }
 
-    // public function getMedichineClass()
-    // {
-    //     return $this->hasOne(MedichineClass::class, 'id', '');
-    // }
+    public function getApotek()
+    {
+        return $this->hasOne(User::class, 'id', 'apotek_id');
+    }
 }
