@@ -65,7 +65,8 @@
                     <b class="d-block">Subkelas Obat</b>
                   </span>
                   <p>
-                    {{ ucwords($medichine->getMedichineName->getSubkelas['subkelas_obat']) }}
+                    {{ isset($medichine->getMedichineName->getSubkelas->subkelas_obat) ?
+                    ucwords($medichine->getMedichineName->getSubkelas['subkelas_obat']) : "" }}
                   </p>
                   <span class="username">
                     <b class="d-block">Sediaan Obat</b>

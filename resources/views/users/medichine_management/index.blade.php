@@ -72,7 +72,8 @@
                     <td>{{ ++$key }}</td>
                     <td class="text-wrap">{{ucwords($medichine['nama_obat'])}}</td>
                     <td class="text-wrap">{{ucwords($medichine->getKelas['kelas_obat'])}}</td>
-                    <td class="text-wrap">{{ucwords($medichine->getSubkelas['subkelas_obat'])}}</td>
+                    <td class="text-wrap">{{isset($medichine->getSubkelas->subkelas_obat) ?
+                      ucwords($medichine->getSubkelas['subkelas_obat']) : ""}}</td>
                     <td class="text-wrap">{{ucwords($medichine->getSediaanObat['sediaan_obat'])}}</td>
                     <td class="text-wrap">{{$medichine['kekuatan']}}</td>
                     <td class="text-wrap">{{$medichine['satuan']}}</td>

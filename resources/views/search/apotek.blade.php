@@ -150,7 +150,8 @@
                       <td>{{ ++$key }}</td>
                       <td>{{ ucwords($medichine_stock->getMedichineName['nama_obat']) }}</td>
                       <td>{{ ucwords($medichine_stock->getMedichineName->getKelas['kelas_obat']) }}</td>
-                      <td>{{ ucwords($medichine_stock->getMedichineName->getSubkelas['subkelas_obat']) }}</td>
+                      <td>{{ isset($medichine_stock->getMedichineName->getSubkelas->subkelas_obat) ?
+                        ucwords($medichine_stock->getMedichineName->getSubkelas['subkelas_obat']) : "" }}</td>
                       <td>{{ ucwords($medichine_stock->getMedichineName->getSediaanObat['sediaan_obat']) }}
                       </td>
                       <td>{{ ucwords($medichine_stock->getMedichineName['kekuatan']) }}
