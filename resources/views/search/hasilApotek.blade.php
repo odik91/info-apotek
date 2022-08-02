@@ -92,7 +92,7 @@
                 $pinpoint = str_replace(" ", "", $result['longlat']);
                 @endphp
                 @if (isset($result['longlat']))
-                {!! "<a href='https://www.google.com/maps/search/" . $query . "/@" . $pinpoint . ",18z/data=!3m1!4b1'" . 
+                {!! "<a href='https://www.google.com/maps/place/$pinpoint'" . 
                 ' class=" btn btn-sm bg-teal"'
                   . 'target="_blank"><i class="fas fa-map-marked-alt"></i> Lihat di GMAP</a>' !!} @else {!!'<button
                   class="btn btn-sm bg-teal" id="pinpointWarning">Lihat di Google Map</button>'!!}

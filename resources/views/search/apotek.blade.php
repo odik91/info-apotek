@@ -92,7 +92,7 @@
             {{-- <a href="https://www.google.com/maps/search/{{$query}}/{{ '@' . $pinpoint }} ,18z/data=!3m1!4b1"
               class="btn btn-block btn-info" target="_blank">Lihat di Google Map</a> --}}
             @if ($apotek['longlat'])
-            {!! "<a href='https://www.google.com/maps/search/" . $query . "/@" . $pinpoint . ",18z/data=!3m1!4b1'" . 
+            {!! "<a href='https://www.google.com/maps/place/$pinpoint'" . 
               ' class=" btn btn-block btn-info"' . 'target="_blank">Lihat di Google Map</a>' !!} @else {!!'<button
               class="btn btn-block btn-info" id="pinpointWarning">Lihat di Google Map</button>'!!}
               @endif
