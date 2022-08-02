@@ -91,7 +91,7 @@
               class="btn btn-block btn-info" target="_blank">Lihat di Google Map</a> --}}
             {{-- <a href="https://www.google.com/maps/search/{{$query}}/{{ '@' . $pinpoint }} ,18z/data=!3m1!4b1"
               class="btn btn-block btn-info" target="_blank">Lihat di Google Map</a> --}}
-            @if (auth()->user()->longlat)
+            @if ($apotek['longlat'])
             {!! "<a href='https://www.google.com/maps/search/" . $query . "/@" . $pinpoint . ",18z/data=!3m1!4b1'" . 
               ' class=" btn btn-block btn-info"' . 'target="_blank">Lihat di Google Map</a>' !!} @else {!!'<button
               class="btn btn-block btn-info" id="pinpointWarning">Lihat di Google Map</button>'!!}
@@ -219,7 +219,7 @@
                       <td class="text-wrap">
                         @php
                         $status = App\Models\MedicalEquipmentStock::where('apotek_id',
-                        auth()->user()->id)->where('alkes_id',
+                        $medicalEquipmentsStockListed->namaAlkes->id)->where('alkes_id',
                         $medicalEquipmentsStockListed['id'])->first();
                         @endphp
                         @if (isset($status['status']))

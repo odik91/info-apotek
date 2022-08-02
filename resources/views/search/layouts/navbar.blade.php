@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white bg-teal">
   <div class="container">
-    <a href="{{'search.index'}}" class="navbar-brand">
+    <a href="{{route('search.index')}}" class="navbar-brand">
       <img src="{{asset('template/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
         class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">INFO Apotek</span>

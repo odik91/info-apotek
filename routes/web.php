@@ -32,12 +32,15 @@ use phpDocumentor\Reflection\DocBlock\Tags\See;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('apotek.index');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return redirect()->route('search.index');
+})->name('home');
 
 // Route pengunjung
 Route::resource('search', SearchController::class);

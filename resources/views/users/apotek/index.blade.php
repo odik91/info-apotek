@@ -185,7 +185,7 @@
                         </td>
                         <td>{{ ucwords($medichine_stock->getMedichineName['kekuatan']) }}
                         </td>
-                        <td>{{ ucwords($medichine_stock->getMedichineName['kekuatan']) }}</td>
+                        <td>{{ ucwords($medichine_stock->getMedichineName['satuan']) }}</td>
                         <td>{{ $medichine_stock['status'] }}</td>
                       </tr>
                       @endforeach
