@@ -130,9 +130,8 @@
               @endphp
 
               @if ($apotek['longlat'])
-              {!! "<a class='btn btn-sm btn-primary'
-                href='https://www.google.com/maps/search/" . $query . "/@" . $pinpoint . ",18z/data=!3m1!4b1'" . ' class="
-                btn btn-block btn-info"' . 'target="_blank">Lihat di Google Map</a>' !!} @else {!!'<button
+              {!! "<a class='btn btn-sm btn-primary' href='https://www.google.com/maps/place/$pinpoint'" . ' class=" btn
+                btn-block btn-info"' . 'target="_blank">Lihat di Google Map</a>' !!} @else {!!'<button
                 class="btn btn-sm btn-primary" id="pinpointWarning">Lihat di Google Map</button>'!!}
                 @endif
                 <a href="{{ route('search.showApotek', $apotek['id']) }}" class="btn btn-sm btn-warning">Detail
